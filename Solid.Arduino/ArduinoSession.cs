@@ -943,9 +943,12 @@ namespace Solid.Arduino
                 } 
                 catch (Exception ex)
                 {
-
                     //TODO: add an exception handling delegate
-                }                                    
+#if DEBUG
+                    Debug.Write(ex.Message);
+#endif
+
+                }
             }
         }
 
