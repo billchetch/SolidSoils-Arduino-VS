@@ -947,7 +947,6 @@ namespace Solid.Arduino
 #if DEBUG
                     Debug.Write(ex.Message);
 #endif
-
                 }
             }
         }
