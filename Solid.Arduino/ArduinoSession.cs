@@ -213,6 +213,17 @@ namespace Solid.Arduino
             }
         }
 
+        #region AddedByChetch
+        public ISerialConnection Connection { get { return _connection; } }
+
+        public int ReceivedMessageListTimeout { get; set; } = -1;
+
+        public int ReceivedMessageListCount { get { return _receivedMessageList.Count; } }
+
+        public event EventHandler<Exception> ProcessMessageException;
+
+        #endregion
+
         #region IStringProtocol
 
         /// <inheritdoc cref="IStringProtocol.StringReceived"/>
@@ -943,7 +954,8 @@ namespace Solid.Arduino
                 } 
                 catch (Exception ex)
                 {
-                    //TODO: add an exception handling delegate
+                    //Added by Chetch on 30/10/2020
+                    ProcessMessageException?.Invoke(this, ex);
 #if DEBUG
                     Debug.Write(ex.Message);
 #endif
@@ -1182,7 +1194,7 @@ namespace Solid.Arduino
 
                 // Remove all unprocessed and timed-out messages.
                 while (_receivedMessageList.Count > 0 &&
-                    ((DateTime.UtcNow - _receivedMessageList.First.Value.Time).TotalMilliseconds > TimeOut))
+                    ((DateTime.UtcNow - _receivedMessageList.First.Value.Time).TotalMilliseconds > ReceivedMessageListTimeout)) //Added by Chetch on 30/10/2020 to separate waiting for a response from how long a message should sit in the queue for
                 {
                     _receivedMessageList.RemoveFirst();
                 }
