@@ -111,6 +111,9 @@ namespace Solid.Arduino
 
         #endregion
 
+        //Added by chetch 01/11/2020 ... for debugging stuff so can be removed
+        public String ID { get; set; } = "N/A";
+
         #region Fields
 
         private const byte AnalogMessage = 0xE0;
@@ -1044,6 +1047,8 @@ namespace Solid.Arduino
             _messageBufferIndex = 1;
             MessageHeader header = (MessageHeader)(serialByte & 0xF0);
 
+            Console.WriteLine("Arduino Session {0} started processing command {1} at buffer index {2}", ID, serialByte.ToString("X"), _messageBufferIndex);
+
             switch (header)
             {
                 case MessageHeader.AnalogState:
@@ -1151,7 +1156,7 @@ namespace Solid.Arduino
                 WriteMessageByte(messageByte);
                 return;
             }
-
+            
             switch (_messageBuffer[1])
             {
                 case 0x6A: // AnalogMappingResponse
