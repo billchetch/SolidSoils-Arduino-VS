@@ -111,7 +111,7 @@ namespace Solid.Arduino
 
         #endregion
 
-        //Added by chetch 01/11/2020 ... for debugging stuff so can be removed
+        //Added by chetch 01/11/2020 ... useful for debugging stuff
         public String ID { get; set; } = "N/A";
 
         #region Fields
