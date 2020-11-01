@@ -1047,8 +1047,6 @@ namespace Solid.Arduino
             _messageBufferIndex = 1;
             MessageHeader header = (MessageHeader)(serialByte & 0xF0);
 
-            Console.WriteLine("Arduino Session {0} started processing command {1} at buffer index {2}", ID, serialByte.ToString("X"), _messageBufferIndex);
-
             switch (header)
             {
                 case MessageHeader.AnalogState:
